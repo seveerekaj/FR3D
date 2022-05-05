@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/TheBall.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/TheBall.gd" type="Script" id=2]
+[ext_resource path="res://assets/boxes_colored.tres" type="MeshLibrary" id=3]
+[ext_resource path="res://scripts/boxes.gd" type="Script" id=4]
+[ext_resource path="res://assets/enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/enemy.gd" type="Script" id=6]
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 15, 1, 15 )
+
+[sub_resource type="CubeMesh" id=4]
+size = Vector3( 30, 2, 30 )
+
+[node name="Level1" type="Spatial"]
+
+[node name="Floor" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor"]
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Floor"]
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="TheBall" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.78, 0.25, -2.62981 )
+script = ExtResource( 2 )
+
+[node name="camera_target" type="Spatial" parent="TheBall"]
+transform = Transform( 1, 0, 0, 0, 0.596883, 0.802328, 0, -0.802328, 0.596883, 0, 11.5054, 12.7785 )
+
+[node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.260336, 0.965518, 0, -0.965518, -0.260336, 0, 20.2018, 23.1327 )
+target = NodePath("../TheBall/camera_target")
+speed = 3.0
+enabled = true
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.877774, -0.0598034, 0.475328, -0.479075, -0.109573, 0.870908, 0, -0.992178, -0.124831, 33.2856, 22.9903, 0 )
+light_color = Color( 1, 0.976471, 0.705882, 1 )
+shadow_enabled = true
+
+[node name="boxes" type="GridMap" parent="."]
+mesh_library = ExtResource( 3 )
+cell_size = Vector3( 1, 1, 1 )
+cell_octant_size = 1
+data = {
+"cells": PoolIntArray( 0, 0, 2, 1, 0, 2, 2, 0, 2, 3, 0, 2, 4, 0, 2, 5, 0, 2, 14, 0, 5, 65521, 0, 5, 65527, 0, 1, 65528, 0, 1, 65531, 0, 2, 65532, 0, 2, 65533, 0, 2, 65534, 0, 2, 65535, 0, 2, 5, 1, 2, 14, 1, 5, 65521, 1, 5, 65527, 1, 1, 65531, 1, 2, 5, 2, 2, 14, 2, 5, 65521, 2, 5, 65527, 2, 1, 65531, 2, 2, 5, 3, 2, 13, 3, 6, 14, 3, 5, 65521, 3, 5, 65527, 3, 1, 65531, 3, 2, 0, 4, 2, 1, 4, 2, 2, 4, 2, 3, 4, 2, 4, 4, 2, 5, 4, 2, 13, 4, 9, 14, 4, 5, 65521, 4, 5, 65531, 4, 2, 65532, 4, 2, 65533, 4, 2, 65534, 4, 2, 65535, 4, 2, 13, 5, 10, 14, 5, 5, 65521, 5, 5, 13, 6, 7, 14, 6, 5, 65521, 6, 5, 65524, 6, 4, 13, 7, 8, 14, 7, 5, 65521, 7, 5, 65524, 7, 4, 14, 8, 5, 65521, 8, 5, 65523, 8, 4, 65524, 8, 4, 65527, 8, 4, 7, 9, 3, 8, 9, 3, 9, 9, 3, 14, 9, 5, 65521, 9, 5, 65523, 9, 4, 65524, 9, 4, 65525, 9, 4, 65526, 9, 4, 65527, 9, 4, 4, 10, 3, 5, 10, 3, 6, 10, 3, 7, 10, 3, 9, 10, 3, 14, 10, 5, 65521, 10, 5, 65523, 10, 4, 65525, 10, 4, 14, 11, 5, 65521, 11, 5, 65525, 11, 4, 14, 12, 5, 65521, 12, 5, 14, 13, 5, 65521, 13, 5, 0, 14, 5, 1, 14, 5, 2, 14, 5, 3, 14, 5, 4, 14, 5, 5, 14, 5, 6, 14, 5, 7, 14, 5, 8, 14, 5, 9, 14, 5, 10, 14, 5, 11, 14, 5, 12, 14, 5, 13, 14, 5, 14, 14, 5, 65521, 14, 5, 65522, 14, 5, 65523, 14, 5, 65524, 14, 5, 65525, 14, 5, 65526, 14, 5, 65527, 14, 5, 65528, 14, 5, 65529, 14, 5, 65530, 14, 5, 65531, 14, 5, 65532, 14, 5, 65533, 14, 5, 65534, 14, 5, 65535, 14, 5, 0, 65521, 5, 1, 65521, 5, 2, 65521, 5, 3, 65521, 5, 4, 65521, 5, 5, 65521, 5, 6, 65521, 5, 7, 65521, 5, 8, 65521, 5, 9, 65521, 5, 10, 65521, 5, 11, 65521, 5, 12, 65521, 5, 13, 65521, 5, 14, 65521, 5, 65521, 65521, 5, 65522, 65521, 5, 65523, 65521, 5, 65524, 65521, 5, 65525, 65521, 5, 65526, 65521, 5, 65527, 65521, 5, 65528, 65521, 5, 65529, 65521, 5, 65530, 65521, 5, 65531, 65521, 5, 65532, 65521, 5, 65533, 65521, 5, 65534, 65521, 5, 65535, 65521, 5, 14, 65522, 5, 65521, 65522, 5, 14, 65523, 5, 65521, 65523, 5, 14, 65524, 5, 65521, 65524, 5, 14, 65525, 5, 65521, 65525, 5, 65523, 65525, 2, 65524, 65525, 2, 8, 65526, 0, 14, 65526, 5, 65521, 65526, 5, 65524, 65526, 2, 8, 65527, 0, 14, 65527, 5, 65521, 65527, 5, 65524, 65527, 2, 8, 65528, 0, 14, 65528, 5, 65521, 65528, 5, 65524, 65528, 2, 65529, 65528, 1, 5, 65529, 0, 8, 65529, 0, 14, 65529, 5, 65521, 65529, 5, 65529, 65529, 1, 5, 65530, 0, 6, 65530, 0, 7, 65530, 0, 8, 65530, 0, 14, 65530, 5, 65521, 65530, 5, 65528, 65530, 1, 65529, 65530, 1, 7, 65531, 0, 8, 65531, 0, 9, 65531, 0, 10, 65531, 0, 11, 65531, 0, 14, 65531, 5, 65521, 65531, 5, 65528, 65531, 1, 5, 65532, 0, 6, 65532, 0, 7, 65532, 0, 8, 65532, 0, 10, 65532, 0, 14, 65532, 5, 65521, 65532, 5, 65526, 65532, 1, 65528, 65532, 1, 5, 65533, 0, 8, 65533, 0, 14, 65533, 5, 65521, 65533, 5, 65526, 65533, 1, 65528, 65533, 1, 6, 65534, 0, 7, 65534, 0, 8, 65534, 0, 14, 65534, 5, 65521, 65534, 5, 65523, 65534, 1, 65524, 65534, 1, 65525, 65534, 1, 65526, 65534, 1, 65527, 65534, 1, 65528, 65534, 1, 7, 65535, 0, 14, 65535, 5, 65521, 65535, 5, 65528, 65535, 1 )
+}
+script = ExtResource( 4 )
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 0, 0 )
+}
+
+[node name="enemies" type="Spatial" parent="."]
+
+[node name="enemyEW1" parent="enemies" instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.570377, 1.62744, 2.52565 )
+script = ExtResource( 6 )
+
+[node name="enemyNS1" parent="enemies" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.570377, 1.62744, -12.4736 )
+script = ExtResource( 6 )
+
+[connection signal="body_entered" from="enemies/enemyEW1" to="enemies/enemyEW1" method="_on_enemy_body_entered"]
+[connection signal="body_entered" from="enemies/enemyNS1" to="enemies/enemyNS1" method="_on_enemy_body_entered"]
