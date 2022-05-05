@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="ff3d_godot"
+config/name="FR3D"
 config/icon="res://icon.png"
 
 [display]
